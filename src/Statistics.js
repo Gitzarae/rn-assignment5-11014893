@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 const Statistics = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Unavaialble</Text>
+      <Text style={styles.text}>Unavaialable</Text>
     </View>
   );
 };
