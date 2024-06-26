@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 const Mycards = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Crd Page</Text>
+      <Text style={styles.text}>Unavaialble</Text>
     </View>
   );
 };

@@ -8,7 +8,7 @@ import Mycards from "./src/Mycards";
 import Statistics from "./src/Statistics";
 import Icon from "react-native-vector-icons/Ionicons";
 
-// Create a Theme Context
+
 export const ThemeContext = createContext();
 
 const Tab = createBottomTabNavigator();
@@ -72,11 +72,12 @@ const App = () => {
         <Tab.Navigator
           screenOptions={({ route }) => ({
             tabBarStyle: {
-              position: "absolute",
-              bottom: 10,
+              position: "absolute",            
               borderTopWidth: 0,
-              height: 80,
-              backgroundColor: isDarkMode ? "black" : "white",
+              height: 90,
+              backgroundColor: isDarkMode
+                ? "rgba(255, 255, 255, 0.1)"
+                : "white",
             },
             tabBarIcon: ({ color, size, focused }) => {
               let iconName;
@@ -94,12 +95,12 @@ const App = () => {
               return (
                 <Icon
                   name={iconName}
-                  color={focused ? "blue" : color}
+                  color={focused ? "#007aff" : color}
                   size={size}
                 />
               );
             },
-            tabBarActiveTintColor: "blue",
+            tabBarActiveTintColor: "#007aff",
             tabBarInactiveTintColor: isDarkMode ? "gray" : "darkgray",
           })}
         >

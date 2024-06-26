@@ -9,7 +9,7 @@ import {
   Switch,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { ThemeContext } from "../App"; // Adjust the import path if necessary
+import { ThemeContext } from "../App"; 
 
 const SettingsScreen = () => {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   darkContainer: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: "#03002e",
     padding: 16,
   },
   darkText: {
@@ -102,13 +102,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
+    borderBottomColor: "#ddd8",
   },
   settingsText: {
     fontSize: 16,
     color: "#000",
   },
   themeContainer: {
+    marginTop: 20,
     margin: 20,
     flexDirection: "row",
     justifyContent: "space-between",

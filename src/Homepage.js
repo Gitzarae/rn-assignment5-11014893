@@ -10,7 +10,7 @@ import {
   StatusBar,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { ThemeContext } from "../App"; // Adjust the import path if necessary
+import { ThemeContext } from "../App";
 
 const transactions = [
   {
@@ -18,28 +18,29 @@ const transactions = [
     name: "Apple Store",
     type: "Entertainment",
     amount: "- $5.99",
-    icon: require("../assets/apple.png"),
+    iconLight: require("../assets/apple.png"),
+    iconDark: require("../assets/applewhite.png"), 
   },
   {
     id: "2",
     name: "Spotify",
     type: "Music",
     amount: "- $12.99",
-    icon: require("../assets/spotifyy.png"),
+    icon: require("../assets/spotifyy.png"), 
   },
   {
     id: "3",
     name: "Money Transfer",
     type: "Transaction",
     amount: "$300",
-    icon: require("../assets/moneyt.png"),
+    icon: "account-balance-wallet",
   },
   {
     id: "4",
     name: "Grocery",
     type: "",
     amount: "- $88",
-    icon: require("../assets/groceryy.png"),
+    icon: require("../assets/groceryy.png"), 
   },
 ];
 
@@ -66,7 +67,7 @@ const Homepage = ({ navigation }) => {
               Welcome back,
             </Text>
             <Text style={[styles.userName, isDarkMode && styles.darkText]}>
-              Baka Kabow
+              Kubs Hammed
             </Text>
           </View>
           <TouchableOpacity style={styles.searchIcon}>
@@ -93,7 +94,11 @@ const Homepage = ({ navigation }) => {
                   : styles.lightIconBackground,
               ]}
             >
-              <Image source={require("../assets/send.png")} style={{}} />
+              <MaterialIcons
+                name="send"
+                size={24}
+                color={isDarkMode ? "#fff" : "#000"}
+              />
             </View>
             <Text style={isDarkMode ? styles.darkText : styles.lightText}>
               Sent
@@ -108,7 +113,11 @@ const Homepage = ({ navigation }) => {
                   : styles.lightIconBackground,
               ]}
             >
-              <Image source={require("../assets/accept.png")} />
+              <MaterialIcons
+                name="call-received"
+                size={24}
+                color={isDarkMode ? "#fff" : "#000"}
+              />
             </View>
             <Text style={isDarkMode ? styles.darkText : styles.lightText}>
               Receive
@@ -123,7 +132,11 @@ const Homepage = ({ navigation }) => {
                   : styles.lightIconBackground,
               ]}
             >
-              <Image source={require("../assets/loann.png")} />
+              <MaterialIcons
+                name="account-balance"
+                size={24}
+                color={isDarkMode ? "#fff" : "#000"}
+              />
             </View>
             <Text style={isDarkMode ? styles.darkText : styles.lightText}>
               Loan
@@ -138,7 +151,11 @@ const Homepage = ({ navigation }) => {
                   : styles.lightIconBackground,
               ]}
             >
-              <Image source={require("../assets/topU.png")} />
+              <MaterialIcons
+                name="account-balance-wallet"
+                size={24}
+                color={isDarkMode ? "#fff" : "#000"}
+              />
             </View>
             <Text style={isDarkMode ? styles.darkText : styles.lightText}>
               Topup
@@ -169,7 +186,23 @@ const Homepage = ({ navigation }) => {
                         : styles.lightIconBackground,
                     ]}
                   >
-                    <Image source={item.icon} />
+                    {typeof item.icon === "string" ? (
+                      <MaterialIcons
+                        name={item.icon}
+                        size={24}
+                        color={isDarkMode ? "#fff" : "#000"}
+                      />
+                    ) : (
+                      <Image
+                        source={
+                          item.iconLight && item.iconDark
+                            ? isDarkMode
+                              ? item.iconDark
+                              : item.iconLight
+                            : item.icon
+                        }
+                      />
+                    )}
                   </View>
                   <View style={styles.transactionDetails}>
                     <Text
@@ -225,10 +258,10 @@ const styles = StyleSheet.create({
   },
   darkContainer: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "#03002e",
   },
   darkIconBackground: {
-    backgroundColor: "#0A74DA",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
   },
   lightIconBackground: {
     backgroundColor: "#F5F5F5",
@@ -258,10 +291,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   searchIcon: {
-    width: 32,
-    height: 32,
+    width: 45,
+    height: 45,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    borderRadius: 30,
   },
   cardContainer: {
     width: "100%",
