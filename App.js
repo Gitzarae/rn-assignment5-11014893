@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState, createContext, useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import Homepage from "./src/Homepage";
-import Settings from "./src/Settingpage";
+import SettingsScreen from "./src/Settingpage";
 import Mycards from "./src/Mycards";
 import Statistics from "./src/Statistics";
 import Icon from "react-native-vector-icons/Ionicons";
-import { ThemeProvider } from "./src/ThemeContext";
+
+// Create a Theme Context
+export const ThemeContext = createContext();
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -21,7 +23,7 @@ const HomeStack = () => (
     />
     <Stack.Screen
       name="Settings"
-      component={Settings}
+      component={SettingsScreen}
       options={{ headerShown: false }}
     />
   </Stack.Navigator>
@@ -40,7 +42,7 @@ const MyCardsStack = () => (
 const StatisticsStack = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="Statistics"
+      name="Statisticspage"
       component={Statistics}
       options={{ headerShown: false }}
     />
@@ -50,26 +52,56 @@ const StatisticsStack = () => (
 const SettingsStack = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="Settings"
-      component={Settings}
+      name="Settingspage"
+      component={SettingsScreen}
       options={{ headerShown: false }}
     />
   </Stack.Navigator>
 );
 
 const App = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
-    <ThemeProvider>
+    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
       <NavigationContainer>
         <Tab.Navigator
-          screenOptions={{
+          screenOptions={({ route }) => ({
             tabBarStyle: {
               position: "absolute",
               bottom: 10,
               borderTopWidth: 0,
               height: 80,
+              backgroundColor: isDarkMode ? "black" : "white",
             },
-          }}
+            tabBarIcon: ({ color, size, focused }) => {
+              let iconName;
+
+              if (route.name === "Home") {
+                iconName = "home-outline";
+              } else if (route.name === "My Cards") {
+                iconName = "card-outline";
+              } else if (route.name === "Statistics") {
+                iconName = "stats-chart-outline";
+              } else if (route.name === "Settings") {
+                iconName = "settings-outline";
+              }
+
+              return (
+                <Icon
+                  name={iconName}
+                  color={focused ? "blue" : color}
+                  size={size}
+                />
+              );
+            },
+            tabBarActiveTintColor: "blue",
+            tabBarInactiveTintColor: isDarkMode ? "gray" : "darkgray",
+          })}
         >
           <Tab.Screen
             name="Home"
@@ -77,20 +109,14 @@ const App = () => {
             options={{
               headerShown: false,
               tabBarLabel: "Home",
-              tabBarIcon: ({ color, size }) => (
-                <Icon name="home-outline" color={color} size={size} />
-              ),
             }}
           />
           <Tab.Screen
             name="My Cards"
-            component={Mycards}
+            component={MyCardsStack}
             options={{
               headerShown: false,
               tabBarLabel: "My Cards",
-              tabBarIcon: ({ color, size }) => (
-                <Icon name="card-outline" color={color} size={size} />
-              ),
             }}
           />
           <Tab.Screen
@@ -99,9 +125,6 @@ const App = () => {
             options={{
               headerShown: false,
               tabBarLabel: "Statistics",
-              tabBarIcon: ({ color, size }) => (
-                <Icon name="stats-chart-outline" color={color} size={size} />
-              ),
             }}
           />
           <Tab.Screen
@@ -110,14 +133,11 @@ const App = () => {
             options={{
               headerShown: false,
               tabBarLabel: "Settings",
-              tabBarIcon: ({ color, size }) => (
-                <Icon name="settings-outline" color={color} size={size} />
-              ),
             }}
           />
         </Tab.Navigator>
       </NavigationContainer>
-    </ThemeProvider>
+    </ThemeContext.Provider>
   );
 };
 

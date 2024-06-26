@@ -1,26 +1,12 @@
-import React, { createContext, useState, useEffect } from "react";
-import { useColorScheme, Appearance } from "react-native";
+import React, { createContext, useState } from "react";
 
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const systemTheme = useColorScheme();
-  const [isDarkMode, setIsDarkMode] = useState(systemTheme === "dark");
-
-  useEffect(() => {
-    const listener = (preferences) => {
-      const colorScheme = preferences.colorScheme;
-      setIsDarkMode(colorScheme === "dark");
-    };
-    Appearance.addChangeListener(listener);
-
-    return () => {
-      Appearance.removeChangeListener(listener);
-    };
-  }, []);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleTheme = () => {
-    setIsDarkMode((previousState) => !previousState);
+    setIsDarkMode(!isDarkMode);
   };
 
   return (

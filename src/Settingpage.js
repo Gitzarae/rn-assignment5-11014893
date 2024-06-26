@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -9,50 +9,76 @@ import {
   Switch,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { ThemeContext } from "../App"; // Adjust the import path if necessary
 
 const SettingsScreen = () => {
+  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" />
+    <SafeAreaView
+      style={isDarkMode ? styles.darkContainer : styles.lightContainer}
+    >
+      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Settings</Text>
+        <Text style={[styles.headerTitle, isDarkMode && styles.darkText]}>
+          Settings
+        </Text>
       </View>
       <View style={styles.settingsContainer}>
         <TouchableOpacity style={styles.settingsItem}>
-          <Text style={styles.settingsText}>Language</Text>
+          <Text style={[styles.settingsText, isDarkMode && styles.darkText]}>
+            Language
+          </Text>
           <Icon name="chevron-forward-outline" size={20} color="#888" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingsItem}>
-          <Text style={styles.settingsText}>My Profile</Text>
+          <Text style={[styles.settingsText, isDarkMode && styles.darkText]}>
+            My Profile
+          </Text>
           <Icon name="chevron-forward-outline" size={20} color="#888" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingsItem}>
-          <Text style={styles.settingsText}>Contact Us</Text>
+          <Text style={[styles.settingsText, isDarkMode && styles.darkText]}>
+            Contact Us
+          </Text>
           <Icon name="chevron-forward-outline" size={20} color="#888" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingsItem}>
-          <Text style={styles.settingsText}>Change Password</Text>
+          <Text style={[styles.settingsText, isDarkMode && styles.darkText]}>
+            Change Password
+          </Text>
           <Icon name="chevron-forward-outline" size={20} color="#888" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingsItem}>
-          <Text style={styles.settingsText}>Privacy Policy</Text>
+          <Text style={[styles.settingsText, isDarkMode && styles.darkText]}>
+            Privacy Policy
+          </Text>
           <Icon name="chevron-forward-outline" size={20} color="#888" />
         </TouchableOpacity>
         <View style={styles.themeContainer}>
-          <Text style={styles.themeText}>Theme</Text>
-          <Switch value={false} />
+          <Text style={[styles.themeText, isDarkMode && styles.darkText]}>
+            Theme
+          </Text>
+          <Switch value={isDarkMode} onValueChange={toggleTheme} />
         </View>
       </View>
-     
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  lightContainer: {
     flex: 1,
     backgroundColor: "#fff",
     padding: 16,
+  },
+  darkContainer: {
+    flex: 1,
+    backgroundColor: "#000",
+    padding: 16,
+  },
+  darkText: {
+    color: "#fff",
   },
   header: {
     marginTop: 50,
@@ -62,7 +88,6 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: "normal",
-    color: "#000",
     marginBottom: 30,
   },
   settingsContainer: {
