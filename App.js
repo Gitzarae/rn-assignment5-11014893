@@ -4,9 +4,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import Homepage from "./src/Homepage";
 import Settings from "./src/Settingpage";
-import Mycards from "./src/Mycards"; // Add your MyCards component
-import Statistics from "./src/Statistics"; // Add your Statistics component
+import Mycards from "./src/Mycards";
+import Statistics from "./src/Statistics";
 import Icon from "react-native-vector-icons/Ionicons";
+import { ThemeProvider } from "./src/ThemeContext";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -58,64 +59,65 @@ const SettingsStack = () => (
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarStyle: {
-            position: "absolute",
-            bottom: 10,
-            borderTopWidth: 0, 
-            height: 80, 
-           
-          },
-        }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={HomeStack}
-          options={{
-            headerShown: false,
-            tabBarLabel: "Home",
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="home-outline" color={color} size={size} />
-            ),
+    <ThemeProvider>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{
+            tabBarStyle: {
+              position: "absolute",
+              bottom: 10,
+              borderTopWidth: 0,
+              height: 80,
+            },
           }}
-        />
-        <Tab.Screen
-          name="My Cards"
-          component={Mycards}
-          options={{
-            headerShown: false,
-            tabBarLabel: "My Cards",
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="card-outline" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Statistics"
-          component={StatisticsStack}
-          options={{
-            headerShown: false,
-            tabBarLabel: "Statistics",
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="stats-chart-outline" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Settings"
-          component={SettingsStack}
-          options={{
-            headerShown: false,
-            tabBarLabel: "Settings",
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="settings-outline" color={color} size={size} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+        >
+          <Tab.Screen
+            name="Home"
+            component={HomeStack}
+            options={{
+              headerShown: false,
+              tabBarLabel: "Home",
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="home-outline" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="My Cards"
+            component={Mycards}
+            options={{
+              headerShown: false,
+              tabBarLabel: "My Cards",
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="card-outline" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Statistics"
+            component={StatisticsStack}
+            options={{
+              headerShown: false,
+              tabBarLabel: "Statistics",
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="stats-chart-outline" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Settings"
+            component={SettingsStack}
+            options={{
+              headerShown: false,
+              tabBarLabel: "Settings",
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="settings-outline" color={color} size={size} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 };
 

@@ -53,7 +53,7 @@ const Homepage = ({ navigation }) => {
           </View>
           <View style={styles.headerText}>
             <Text style={styles.welcomeText}>Welcome back,</Text>
-            <Text style={styles.userName}>Eric Atsu</Text>
+            <Text style={styles.userName}>Baka Kabow</Text>
           </View>
           <TouchableOpacity style={styles.searchIcon}>
             <MaterialIcons name="search" size={24} color="#000" />
